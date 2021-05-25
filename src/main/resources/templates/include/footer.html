@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<body>
+
+    <!-- footer help detail -->
+    <div th:fragment="footerDetail" class="row footer-row">
+        <div class="col w-100 m-0 p-0">
+            <!-- 优七特帮 -->
+            <div class="row mx-0 justify-content-between p-md-5">
+                <!-- 优 -->
+                <div class="col p-0">
+                    <div class="d-flex m-auto type-box justify-content-center">
+                        <div class="d-flex justify-content-center align-items-center">优</div>
+                        <div class="d-flex flex-column ml-3">
+                            <span>品质保障</span>
+                            <span class="text-muted">品质护航 购物无忧</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- 七 -->
+                <div class="col p-0">
+                    <div class="d-flex m-auto type-box justify-content-center">
+                        <div class="d-flex justify-content-center align-items-center">七</div>
+                        <div class="d-flex flex-column ml-3">
+                            <span>七天无理由退换货</span>
+                            <span class="text-muted">为您提供售后无忧保障</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- 特 -->
+                <div class="col p-0">
+                    <div class="d-flex m-auto type-box justify-content-center">
+                        <div class="d-flex justify-content-center align-items-center">特</div>
+                        <div class="d-flex flex-column ml-3">
+                            <span>特色服务体验</span>
+                            <span class="text-muted">为您呈现不一样的服务</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- 帮 -->
+                <div class="col p-0">
+                    <div class="d-flex m-auto type-box justify-content-center">
+                        <div class="d-flex justify-content-center align-items-center">帮</div>
+                        <div class="d-flex flex-column ml-3">
+                            <span>帮助中心</span>
+                            <span class="text-muted">您的购物指南</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 购物指南  ... -->
+            <div class="row mx-0">
+                <div class="col mx-md-auto d-flex shoping-detail">
+                    <div class="mx-auto">
+                        <div class="row justify-content-around mt-4">
+                            <div class="d-flex flex-column mx-4">
+                                <dt>购物指南</dt>
+                                <dd class="d-flex flex-column">
+                                    <a href="javascript:void (0)">免费注册</a>
+                                    <a href="javascript:void (0)">开通支付宝</a>
+                                    <a href="javascript:void (0)">支付宝充值</a>
+                                </dd>
+                            </div>
+                            <div class="d-flex flex-column mx-4">
+                                <dt>天猫保障</dt>
+                                <dd class="d-flex flex-column">
+                                    <a href="javascript:void (0)">发票保障</a>
+                                    <a href="javascript:void (0)">售后规则</a>
+                                    <a href="javascript:void (0)">缺货赔付</a>
+                                </dd>
+                            </div>
+                            <div class="d-flex flex-column mx-4">
+                                <dt>支付方式</dt>
+                                <dd class="d-flex flex-column">
+                                    <a href="javascript:void (0)">快捷支付</a>
+                                    <a href="javascript:void (0)">信用卡</a>
+                                    <a href="javascript:void (0)">余额宝</a>
+                                    <a href="javascript:void (0)">蚂蚁花呗</a>
+                                    <a href="javascript:void (0)">货到付款</a>
+                                </dd>
+                            </div>
+                            <div class="d-flex flex-column mx-4">
+                                <dt>商家服务</dt>
+                                <dd class="d-flex flex-column">
+                                    <a href="javascript:void (0)">天猫规则</a>
+                                    <a href="javascript:void (0)">商家入驻</a>
+                                    <a href="javascript:void (0)">商家中心</a>
+                                    <a href="javascript:void (0)">天猫智库</a>
+                                    <a href="javascript:void (0)">物流服务</a>
+                                    <a href="javascript:void (0)">喵言喵语</a>
+                                    <a href="javascript:void (0)">运营服务</a>
+                                </dd>
+                            </div>
+                            <div class="d-flex flex-column mx-4">
+                                <dt>手机天猫</dt>
+                                <dd class="d-flex flex-column">
+                                    <a href="javascript:void (0)">
+                                        <img width="105" src="image/site/shoujitianmaoerweima.png">
+                                    </a>
+                                </dd>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--tmallhead-->
+            <div class="row mx-0 tmall-head-image">
+                <div class="col">
+                    <img width="68" th:src="@{image/site/tmallhead-bottom.png}" src="../../static/image/site/tmallhead-bottom.png">
+                </div>
+            </div>
+            <!-- red line-->
+            <div class="row mx-0">
+                <div class="col px-0">
+                    <!-- red line -->
+                    <div class="red-line"></div>
+                </div>
+            </div>
+            <!-- legal message-->
+            <div class="row mx-0" th:insert="this::footer"></div>
+        </div>
+    </div>
+
+    <!-- legal message -->
+    <div th:fragment="footer" class="col px-0 legal-tedail-message">
+        <!-- line - 1 -->
+        <div class="row mx-0">
+            <div class="col">
+                <a href="javascript:void(0)">关于天猫</a>
+                <a href="javascript:void(0)">帮助中心</a>
+                <a href="javascript:void(0)">开放平台</a>
+                <a href="javascript:void(0)">诚聘英才</a>
+                <a href="javascript:void(0)">联系我们</a>
+                <a href="javascript:void(0)">网站合作</a>
+                <a href="javascript:void(0)">法律声明</a>
+                <a href="javascript:void(0)">隐私权政策</a>
+                <a href="javascript:void(0)">知识产权</a>
+                <a href="javascript:void(0)">廉正举报</a>
+                <a href="javascript:void(0)">规则意见征集</a>
+            </div>
+        </div>
+        <!-- line - 2 -->
+        <div class="row mx-0">
+            <div class="col">
+                <a href="javascript:void(0)">阿里巴巴集团</a>
+                <i>|</i>
+                <a href="javascript:void(0)">淘宝网</a>
+                <i>|</i>
+                <a href="javascript:void(0)">天猫</a>
+                <i>|</i>
+                <a href="javascript:void(0)">聚划算</a>
+                <i>|</i>
+                <a href="javascript:void(0)">全球速卖通</a>
+                <i>|</i>
+                <a href="javascript:void(0)">阿里巴巴国际交易市场</a>
+                <i>|</i>
+                <a href="javascript:void(0)">1688</a>
+                <i>|</i>
+                <a href="javascript:void(0)">阿里妈妈</a>
+                <i>|</i>
+                <a href="javascript:void(0)">飞猪</a>
+                <i>|</i>
+                <a href="javascript:void(0)">阿里云计算</a>
+                <i>|</i>
+                <a href="javascript:void(0)">AliOS</a>
+                <i>|</i>
+                <a href="javascript:void(0)">阿里通信</a>
+                <i>|</i>
+                <a href="javascript:void(0)">万网</a>
+                <i>|</i>
+                <a href="javascript:void(0)">高德</a>
+                <i>|</i>
+                <a href="javascript:void(0)">UC</a>
+                <i>|</i>
+                <a href="javascript:void(0)">友盟</a>
+                <i>|</i>
+                <a href="javascript:void(0)">虾米</a>
+                <i>|</i>
+                <a href="javascript:void(0)">钉钉</a>
+                <i>|</i>
+                <a href="javascript:void(0)">支付宝</a>
+            </div>
+        </div>
+        <!-- line - 3 -->
+        <div class="row mx-0">
+            <div class="col footer-copyright">
+                <span>增值电信业务经营许可证： 浙B2-20110446</span>
+                <span>市场名称登记证：工商网市字3301004119号</span>
+                <span>出版物网络交易平台服务经营备案证： 新出发浙备字第001号</span>
+            </div>
+        </div>
+        <!-- line - 4 -->
+        <div class="row mx-0">
+            <div class="col mt-1 footer-copyright">
+                <span>互联网违法和不良信息举报电话：0571-81683755 blxxjb@alibaba-inc.com</span>
+                <span>互联网药品信息服务资质证书编号：浙-（经营性）-2017-0005</span>
+                <span>
+                    <a href="javascript:void (0)">
+                       <img src="image/site/wananbei.png">
+                       <span>浙公网安备 33010002000120号</span>
+                    </a>
+                </span>
+            </div>
+        </div>
+        <!-- line - 5 -->
+        <div class="row mx-0">
+            <div class="col footer-copyright">
+                <span>医疗器械网络交易服务第三方平台备案：（浙）网械平台备字[2018]第00002号</span>
+                <span>互联网药品交易服务资格证书：国A20150001</span>
+            </div>
+        </div>
+        <!-- line - 6 -->
+        <div class="row mx-0">
+            <div class="col footer-copyright">
+                <span>浙江省网络食品销售第三方平台提供者备案：浙网食A33010002</span>
+                <span>
+                   <a href="javascript:void (0)">
+                       <span>12318举报</span>
+                    </a>
+                </span>
+            </div>
+        </div>
+        <!-- line - 7 -->
+        <div class="row mx-0">
+            <div class="col footer-copyright-version">
+                <span>© 2003-2019 TMALL.COM 版权所有</span>
+            </div>
+        </div>
+        <!-- line - 8 -->
+        <div class="row mx-0">
+            <div class="col mt-2 mb-4">
+                <img width="30" src="image/site/wanjigtubiao.gif">
+                <img width="80" src="image/site/xukezheng.jpg" class="ml-2">
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

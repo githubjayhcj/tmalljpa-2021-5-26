@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<!-- 引入依赖框架 -->
+<head th:replace="include/header :: head(~{::title},~{::link},~{::script})">
+    <meta charset="UTF-8">
+    <title>天猫tmall.com--理想生活上天猫</title>
+</head>
+<body>
+    <div class="container-fluid" id="container">
+        <!-- login Modal -->
+        <div th:replace="~{include/loginModal :: loginModal}"></div>
+
+        <!-- static navigation -->
+        <div class="row">
+            <div class="col px-0">
+                <nav id="fixed-nav" class="navbar navbar-expand-lg navbar-light fixed-top" style="display: none;">
+                    <a class="navbar-brand px-md-4" href="#">TMALL 天猫</a>
+                    <button class="navbar-toggler bg-white" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <form class="form-inline my-2 my-lg-0 w-100">
+                            <input class="form-control mr-sm-2 form-control-sm" type="search" placeholder="搜索 天猫 商品/名牌/店铺" aria-label="Search">
+                            <button class="btn my-2 my-sm-0 btn-sm" type="submit">搜索</button>
+                        </form>
+                    </div>
+                </nav>
+            </div>
+        </div>
+
+        <!-- head nav -->
+        <div class="row">
+            <div class="col px-0" th:insert="include/foreNavigator::navigator(false)"></div>
+        </div>
+        <!-- search and  logo -->
+        <div class="row">
+            <div class="col-3 home-login-col px-0 px-md-5">
+                <img class="home-login"  src="../../static/image/site/tmalllogo.png" th:src="@{/image/site/tmalllogo.png}">
+            </div>
+            <div class="col-6 align-self-center">
+                <form>
+                    <!-- search item -->
+                    <div class="input-group">
+                        <input type="text" class="form-control search-input" placeholder="搜索 天猫 商品/名牌/店铺" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                        <div class="input-group-append">
+                            <button class="btn search-button" type="button">搜索</button>
+                        </div>
+                    </div>
+                </form>
+                <!-- hot key search -->
+                <ul class="nav"><!-- 根据屏幕宽度，固定显示个数 -->
+                    <template v-for="index in 5">
+                        <li  class="nav-item float-left">
+                            <a v-if="index%2 == 0" class="hot-search-link" href="javascript:void(0)">{{categories[index-1].name}}</a>
+                            <a v-else class="hot-search-link-red" href="javascript:void(0)">{{categories[index-1].name}}</a>
+                        </li>
+                        <span v-if="index < 5" class="mx-3 hot-search-seprator float-left">|</span>
+                    </template>
+                </ul>
+            </div>
+            <div class="col-3 placeholder-div"></div>
+        </div>
+        <div class="row">
+            <div class="col px-0 px-md-5">
+                <!-- carousel -->
+                <ul class="nav category-menu">
+                    <!--<span class="oi oi-map" title="icon name" aria-hidden="true"></span>-->
+                    <li class="nav-item category-menu-name">
+                        <span class="oi oi-list float-left px-3" title="icon name" aria-hidden="true"></span>
+                        <span>商品分类</span>
+                    </li>
+                    <li class="nav-item px-2">
+                        <a href="javascript:void(0)">
+                            <img class="category-menu-chaoshi-guoji" src="../../static/image/site/tmallchaoshi.png" th:src="@{/image/site/tmallchaoshi.png}">
+                        </a>
+                    </li>
+                    <li class="nav-item px-2">
+                        <a href="javascript:void(0)">
+                            <img class="category-menu-chaoshi-guoji" src="../../static/image/site/tmallguoji.png" th:src="@{/image/site/tmallguoji.png}">
+                        </a>
+                    </li>
+                    <li class="nav-item px-2 recommend-category-link">
+                        <a class="category-menu-a" href="javascript:void(0)">
+                            <span>天猫会员</span>
+                        </a>
+                    </li>
+                    <li class="nav-item px-2 recommend-category-link">
+                        <a class="category-menu-a" href="javascript:void(0)">
+                            <span>电器城</span>
+                        </a>
+                    </li>
+                    <li class="nav-item px-2 recommend-category-link">
+                        <a class="category-menu-a" href="javascript:void(0)">
+                            <span>喵鲜生</span>
+                        </a>
+                    </li>
+                    <li class="nav-item px-2 recommend-category-link">
+                        <a class="category-menu-a" href="javascript:void(0)">
+                            <span>医药馆</span>
+                        </a>
+                    </li>
+                    <li class="nav-item px-2 recommend-category-link">
+                        <a class="category-menu-a" href="javascript:void(0)">
+                            <span>营业厅</span>
+                        </a>
+                    </li>
+                    <li class="nav-item px-2 recommend-category-link">
+                        <a class="category-menu-a" href="javascript:void(0)">
+                            <span>魅力惠</span>
+                        </a>
+                    </li>
+                    <li class="nav-item px-2 recommend-category-link">
+                        <a class="category-menu-a" href="javascript:void(0)">
+                            <span>飞猪旅行</span>
+                        </a>
+                    </li>
+                    <li class="nav-item px-2 recommend-category-link">
+                        <a class="category-menu-a" href="javascript:void(0)">
+                            <span>苏宁易购</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col px-0">
+                <!-- red line -->
+                <div class="red-line"></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 px-0 d-flex carousel-col">
+                <!-- carousel   -->
+                <div id="homeCarousel" class="carousel slide mx-auto" data-ride="carousel">
+                    <ol class="carousel-indicators">
+                        <li data-target="#homeCarousel" data-slide-to="0" class="active"></li>
+                        <li data-target="#homeCarousel" data-slide-to="1" class="carousel-index-bg"></li>
+                        <li data-target="#homeCarousel" data-slide-to="2" class="carousel-index-bg"></li>
+                        <li data-target="#homeCarousel" data-slide-to="3" class="carousel-index-bg"></li>
+                        <li data-target="#homeCarousel" data-slide-to="4" class="carousel-index-bg"></li>
+                    </ol>
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <a href="javascript:void(0)">
+                                <img class="d-block w-100" th:src="@{/image/carousel/1.jpg}" alt="First slide">
+                            </a>
+                        </div>
+                        <div class="carousel-item">
+                            <a href="javascript:void(0)">
+                                <img class="d-block w-100" th:src="@{/image/carousel/2.jpg}" alt="Second slide">
+                            </a>
+                        </div>
+                        <div class="carousel-item">
+                            <a href="javascript:void(0)">
+                                <img class="d-block w-100" th:src="@{/image/carousel/3.jpg}" alt="Third slide">
+                            </a>
+                        </div>
+                        <div class="carousel-item">
+                            <a href="javascript:void(0)">
+                                <img class="d-block w-100" th:src="@{/image/carousel/4.jpg}" alt="Third slide">
+                            </a>
+                        </div>
+                        <div class="carousel-item">
+                            <a href="javascript:void(0)">
+                                <img class="d-block w-100" th:src="@{/image/carousel/5.jpg}" alt="Third slide">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <!-- left category menu -->
+                <div class=" mx-md-5 position-absolute left-category-menu">
+                    <ul class="list-group category-menu-list">
+                        <li v-for="c in categories" class="list-group-item p-0 category-menu-item category-tab-show" v-bind="{id:c.id , href:'#tab-content-'+c.id}"  role="tab" aria-controls="category products subtitle">
+                            <a class="font-color-5 text-decoration-none" v-bind:href="'productSort?cid='+c.id">
+                                <span class="oi oi-link-intact mr-2" title="icon name" aria-hidden="true"></span>
+                                <span>{{c.name}}</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- category menu tab -->
+                <div class="position-absolute bg-white mx-md-5 category-menu-tab">
+                    <!-- tab-content -->
+                    <div class="tab-content h-100" id="nav-tabContent">
+                        <div v-for="c in categories" class="tab-pane px-4 py-3 tab-pane-item category-tab-show h-100" v-bind="{id:'tab-content-'+c.id, 'aria-labelledby':c.id}" role="tabpanel" >
+                            <template v-for="p in productsMap[c.id]">
+                                <template v-for="(title ,index) in subTitleList(p.subTitle)">
+                                    <a href="javascript:void(0)" class="subTitle">{{title}}</a>
+                                    <a href="javascript:void(0)" class="subTitle" v-if="Math.round(Math.random()*3)<2">{{title}}</a>
+                                    <a href="javascript:void(0)" class="high-color subTitle" v-else >{{title}}</a>
+                                </template>
+                                <div class="title-separator"></div>
+                            </template>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- category and product -->
+        <div class="row">
+            <div class="col px-0 px-md-5 products-container py-4">
+                <!-- foreach  product and category name item -->
+                <template v-for="c in categories">
+                    <!-- category name -->
+                    <div  class="row mt-4">
+                        <div class="col px-0">
+                            <!-- category name -->
+                            <div class="col d-flex align-items-center">
+                                <i class="category-mark mr-3"></i>
+                                <span v-text="c.name">分类名称</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- product -->
+                    <div class="row m-0 justify-content-between">
+                        <div th:replace="~{include/productItem :: productItem}"></div>
+                    </div>
+                </template>
+                <!-- end logo -->
+                <div class="row">
+                    <div class="col">
+                        <img class="d-block mx-auto mt-2" width="80" height="45" th:src="@{image/site/endImage.png}" src="../../static/image/site/endImage.png">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- footer page -->
+        <div class="row" th:replace="include/footer::footerDetail"></div>
+    </div>
+    <!-- admin main.css -->
+    <link rel="stylesheet" th:href="@{/css/fore/main.css}" href="../../static/css/fore/main.css"/>
+    <!-- util main.js -->
+    <script type="text/javascript" th:src="@{/js/utility/main.js}" src="../../static/js/utility/main.js"></script>
+    <!-- fore home.js -->
+    <script type="text/javascript" th:src="@{/js/fore/home.js}" src="../../static/js/fore/home.js"></script>
+</body>
+</html>

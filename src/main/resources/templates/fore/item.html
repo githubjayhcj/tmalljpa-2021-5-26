@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<!-- 引入依赖框架 -->
+<head th:replace="include/header :: head(~{::title},~{::link},~{::script})">
+    <meta charset="UTF-8">
+    <title th:text="${session.currentProduct.name}">产品名称</title>
+    <!-- admin main.css -->
+    <link rel="stylesheet" th:href="@{/css/fore/main.css}" href="../../static/css/fore/main.css"/>
+    <!-- util main.js -->
+    <script type="text/javascript" th:src="@{/js/utility/main.js}" src="../../static/js/utility/main.js"></script>
+    <!-- fore home.js -->
+    <script type="text/javascript" th:src="@{/js/fore/item.js}" src="../../static/js/fore/item.js"></script>
+</head>
+<body>
+    <!-- contaier -->
+    <div class="container-fluid" id="container">
+
+        <!-- light window -->
+        <div class="light-window position-absolute d-none" style="left: 50%;top:540px;margin-left: -10%;z-index: 20;">
+            <div class="d-flex my-border9 bg-white pt-3 pb-3 pl-2 pr-1" style="width:300px;">
+                <div class="d-flex align-items-center">
+                    <div class=" rounded-circle border border-success rounded-circle text-success mr-2" style="width: 22px;height: 22px;padding: 2px;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-check2" viewBox="0 0 16 16">
+                            <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
+                        </svg>
+                    </div>
+                </div>
+                <div>
+                    <span class="d-block font-size-16 font-color-2">成功加入购物车！</span>
+                    <span class="d-block font-size-12 font-color-9">
+                    您可以
+                    <a href="#">购物车结算，</a>
+                    或先使用
+                    <a href="#" class="font-color-7">天猫APP</a>
+                    领取新用户福利礼包
+                    <a href="#">立刻下载天猫APP</a>
+                </span>
+                </div>
+                <div>
+                    <a href="javascrip:void(0);" class="d-block font-color-2" style="margin-top: -10px;" onclick="closeLightWindow()">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
+                            <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- login Modal -->
+        <div th:replace="~{include/loginModal :: loginModal}"></div>
+        <!-- head nav -->
+        <div class="row">
+            <div class="col px-0" th:insert="include/foreNavigator::navigator(true)"></div>
+        </div>
+        <div class="row mx-md-5">
+            <div class="col px-md-2 pt-3 pb-4">
+                <div class="d-inline-block item-head-detail">
+                    <div class="d-flex">
+                        <a class="item-head-logo" href="#">TMALL天猫</a>
+                        <div class="seller-detail">
+                            <div class="d-flex">
+                                <a href="javascript:void (0);">官方旗舰店</a>
+                            </div>
+                            <div>品牌直销</div>
+                            <a href="javascript:void (0);"></a>
+                        </div>
+                        <div class="server-score d-inline-block">
+                            <span class="server-score-name">描 述</span>
+                            <span class="server-score-name">服 务</span>
+                            <span class="server-score-name">物 流</span>
+                            <br>
+                            <span class="server-score-content">4.8</span>
+                            <span class="oi oi-arrow-top server-score-content" title="icon name" aria-hidden="true"></span>
+                            <span class="server-score-content">4.8</span>
+                            <span class="oi oi-arrow-top server-score-content" title="icon name" aria-hidden="true"></span>
+                            <span class="server-score-content">4.8</span>
+                            <span class="oi oi-arrow-top server-score-content" title="icon name" aria-hidden="true"></span>
+                        </div>
+                    </div>
+                </div>
+                <!-- search -->
+                <div class="float-right item-search-group">
+                    <div class="input-group input-group-sm">
+                        <input type="text" class="form-control" placeholder="搜索 天猫 商品/名牌/店铺" aria-label="Recipient's username with two button addons" aria-describedby="button-addon4">
+                        <div class="input-group-append" id="button-addon4">
+                            <button type="button">搜天猫</button>
+                            <button type="button">搜本店</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- head-bottom-line -->
+        <div class="row">
+            <div class="col px-0">
+                <div class="head-bottom-line"></div>
+            </div>
+        </div>
+        <!-- category image -->
+        <div class="row">
+            <div class="col px-0">
+                <img class="mx-auto d-block" height="89" src="image/category/1.jpg">
+            </div>
+        </div>
+        <!-- item content -->
+        <div class="row mt-4">
+            <div class="col">
+                <div class="mx-auto d-flex item-main-container">
+                    <div class="d-flex item-main-content">
+                        <div class="item-main-img-col">
+                            <!-- current-product-img -->
+                            <div class="mx-auto position-relative images-container">
+                                <!-- scanning-dom -->
+                                <!--<div id="scanning-dom" class="position-absolute display-none"></div>-->
+                                <!-- monitor canvas -->
+                                <canvas id="monitor-canvas" class="position-absolute display-none"></canvas>
+                                <!-- current product imgs -->
+                                <template v-for="(pi,index) in productSingle">
+                                    <div class="w-100 h-100 img-parent" v-if="index == 0">
+                                        <div class="d-flex w-100 h-100 justify-content-center align-items-center">
+                                            <div class="preview-img-parent">
+                                                <!-- scanning-dom -->
+                                                <div class="position-absolute display-none"></div>
+                                                <img v-bind:id="pi.id"  v-bind:src="'image/productSingle/'+pi.id+'.jpg'">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="w-100 h-100 img-parent display-none" v-else>
+                                        <div class="d-flex w-100 h-100 justify-content-center align-items-center">
+                                            <div class="preview-img-parent">
+                                                <!-- scanning-dom -->
+                                                <div class="position-absolute display-none"></div>
+                                                <img class="preview-img" v-bind:id="pi.id"  v-bind:src="'image/productSingle/'+pi.id+'.jpg'">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </template>
+                            </div>
+                            <!-- image list -->
+                            <div class="w-100 mt-4 d-flex justify-content-center">
+                                <template v-for="(pi,index) in productSingle">
+                                    <div v-bind:data-href="pi.id" class="d-flex mx-2 justify-content-center align-items-center product-img-list-item img-border cursor-point"  v-if="index < 5 && index===0">
+                                        <img  v-bind:src="'image/productSingle_small/'+pi.id+'.jpg'"/>
+                                    </div>
+                                    <div v-bind:data-href="pi.id" class="d-flex mx-2 justify-content-center align-items-center product-img-list-item cursor-point"  v-else-if="index < 5">
+                                        <img  v-bind:src="'image/productSingle_small/'+pi.id+'.jpg'"/>
+                                    </div>
+                                </template>
+                            </div>
+                            <!-- 举报收藏商品 （1200人气）     举报 -->
+                            <div class="w-100 mt-4 px-5">
+                                <span class="oi oi-star tm-store-up" title="icon name" aria-hidden="true"></span>
+                                <a class="text-decoration-none tm-store-up" href="javascript:void (0);">收藏商品</a>
+                                <span class="ml-2 tm-store-up">(1200人气)</span>
+                                <a class="float-right text-decoration-none tm-store-up" href="javascript:void (0);">举报</a>
+                            </div>
+                        </div>
+                        <div class="item-main-message-col">
+                            <div class="w-100">
+                                <span v-text="product.name"></span>
+                            </div>
+                            <div class="w-100">
+                                <span v-text="product.subTitle"></span>
+                            </div>
+                            <div class="w-100 mt-3">
+                                <div class="w-100">
+                                    <span class="deal-title">价格</span>
+                                    <span>¥</span>
+                                    <del v-text="product.originalPrice"></del>
+                                </div>
+                                <div class="w-100">
+                                    <span class="deal-title">促销价</span>
+                                    <span>¥</span>
+                                    <span v-text="product.promotePrice"></span>
+                                    <span>惊喜价</span>
+                                </div>
+                                <div class="w-100 pb-1">
+                                    <span class="deal-title">本店活动</span>
+                                    <span>满349元,包邮,送10元店铺优惠券</span>
+                                </div>
+                            </div>
+                            <div class="w-100 row m-0 mt-4 py-2">
+                                <div class="col text-center">
+                                    <span>月销量</span>
+                                    <span class="ml-1 font-weight-bold font-red">20</span>
+                                </div>
+                                <div class="col text-center">
+                                    <span>累计评价</span>
+                                    <span class="ml-1 font-weight-bold font-red">140</span>
+                                </div>
+                            </div>
+                            <div class="w-100 mt-4 d-flex ">
+                                <span class="deal-title d-flex align-items-center">数量</span>
+                                <div class="d-inline-block">
+                                    <div class="d-flex">
+                                        <input type="text" v-model.number="orderItem.count" value="1" pattern="[0-9]" v-on:input="manualInputCount"/>
+                                        <div class="ml-1 d-flex flex-wrap align-content-between">
+                                            <a class="d-flex justify-content-center align-content-center" href="javascript:void (0);"v-on:click="addCount">
+                                                <img class="m-auto" th:src="@{image/site/increase.png}" src="../../static/image/site/increase.png">
+                                            </a>
+                                            <a class="d-flex justify-content-center align-content-center" href="javascript:void (0);"v-on:click="subCount">
+                                                <img class="m-auto" th:src="@{image/site/decrease.png}" src="../../static/image/site/decrease.png">
+                                            </a>
+                                        </div>
+                                        <span class="deal-title d-flex align-items-center">件</span>
+                                        <span class="deal-title d-flex align-items-center ml-4">
+                                            <span>库存</span>
+                                            <span v-text="product.stock">16</span>
+                                            <span>件</span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="w-100 mt-5 text-center">
+                                <a href="javascript:void (0);" v-on:click.once="buyNow">立刻购买</a>
+                                <a class="ml-2" href="javascript:void (0);" v-on:click="addShopCart">
+                                    <span class="oi oi-cart" title="icon name" aria-hidden="true"></span>
+                                    加入购物车
+                                </a>
+                            </div>
+                            <div class="w-100 mt-5">
+                                <span class="float-left deal-title mt-2">服务承诺</span>
+                                <div class="float-left">
+                                    <span title="全国联保">
+                                        <a href="javascript:void (0);" class="text-decoration-none">全国联保</a>
+                                    </span>
+                                    <span title="商品支持正品保障服务">
+                                        <a href="javascript:void (0);" class="text-decoration-none">正品保证</a>
+                                    </span>
+                                    <span title="天猫电器延保服务，全国联保结束后天猫为电器继续延长服务保障期，为影响正常使用的性能故障提供维修">
+                                        <a href="javascript:void (0);" class="text-decoration-none">延保服务</a>
+                                    </span>
+                                    <span title="极速退款是为诚信会员提供的退款退货流程的专享特权，额度是根据每个用户当前的信誉评级情况而定">
+                                        <a href="javascript:void (0);" class="text-decoration-none">急速退款</a>
+                                    </span>
+                                    <span title="卖家为您购买的商品投保退货运费险（保单生效以下单显示为准）">
+                                        <a href="javascript:void (0);" class="text-decoration-none">赠运费险</a>
+                                    </span>
+                                    <span title="七天无理由退换">
+                                        <a href="javascript:void (0);" class="text-decoration-none">七天无理由退换</a>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- right 看了又看 container -->
+                    <div class="right-other-product">
+                        <div class="w-100 d-flex align-items-center justify-content-center">
+                            <i></i>
+                            <span class="mx-3 text-main-type">看了又看</span>
+                            <i></i>
+                        </div>
+                        <div class="w-100 d-flex mb-3 align-items-center mt-2 flex-column other-product-item" v-for="(p,index) in products">
+                            <template v-if="index < 3">
+                                <a class="position-relative">
+                                    <span class="w-100 d-block position-absolute">¥799.00</span>
+                                    <img class="w-100" v-bind:src="'image/productSingle_middle/'+productImageMap[p.id].id+'.jpg'" v-on:click="item(p.id)"><!-- onclick -->
+                                </a>
+                                <a class="d-block text-truncate mt-1 w-100 px-3" href="javascript:void (0);" v-text="p.name" v-on:click="item(p.id)"></a>
+                            </template>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 详情 ， 评论 ， 服务 （栏） -->
+        <div class="row mt-4">
+            <div class="col">
+                <div class="mx-auto d-flex item-main-container">
+                    <!-- 主内容区，包含左侧信息列 -->
+                    <div class="item-main-content">
+                        <img class="w-100 mb-1" th:src="@{image/site/jingkouxiaotieshi.png}" src="../../static/image/site/jingkouxiaotieshi.png"/>
+                        <div class="d-flex justify-content-between">
+                            <!-- 店铺左侧内容区 -->
+                            <div class="shop-info-left-content">
+                                <div class="w-100 text-center py-3">
+                                    <span class="oi oi-shield" title="icon name" aria-hidden="true"></span>
+                                    <span class="ml-1">天猫国际官方认证</span>
+                                </div>
+                                <div class="w-100">
+                                    <div class="w-100 text-center mt-1">
+                                        <a href="javascript:void(0);">天猫官方海外旗舰店</a>
+                                        <a href="javascript:void(0);"></a>
+                                    </div>
+                                    <div class="w-100 px-5 py-2">
+                                        <span>4</span>
+                                        <span class="ml-1">天猫4年店</span>
+                                    </div>
+                                    <div class="w-100 text-center mt-2">
+                                        <div class="server-score d-inline-block border-0">
+                                            <span class="server-score-name">描 述</span>
+                                            <span class="server-score-name">服 务</span>
+                                            <span class="server-score-name">物 流</span>
+                                            <br>
+                                            <span class="server-score-content">4.8</span>
+                                            <span class="oi oi-arrow-top server-score-content" title="icon name" aria-hidden="true"></span>
+                                            <span class="server-score-content">4.8</span>
+                                            <span class="oi oi-arrow-top server-score-content" title="icon name" aria-hidden="true"></span>
+                                            <span class="server-score-content">4.8</span>
+                                            <span class="oi oi-arrow-top server-score-content" title="icon name" aria-hidden="true"></span>
+                                        </div>
+                                    </div>
+                                    <div class="w-100 position-relative mt-3">
+                                        <div class="position-absolute rounded-circle d-flex">
+                                            <img class="w-100" th:src="@{image/site/TB1.6gLKFXXXXaNX-171-148.png}" src="../../static/image/site/TB1.6gLKFXXXXaNX-171-148.png">
+                                        </div>
+                                        <img th:src="@{image/site/TB1jJR6Lp-188-48.jpg}" src="../../static/image/site/TB1jJR6Lp-188-48.jpg">
+                                    </div>
+                                </div>
+                                <div class="w-100 mt-2 d-flex justify-content-between py-2 border-main-type">
+                                    <span class="ml-2">宝贝推荐</span>
+                                    <a href="javascript:void(0);">更多</a>
+                                </div>
+                                <!-- 更多列表 -->
+                                <div class="w-100 mt-2">
+                                    <div class="card w-100 p-1 rounded-0" v-for="(p,index) in products" v-if="index<5">
+                                        <img v-bind:src="'image/productSingle_middle/'+productImageMap[p.id].id+'.jpg'" class="card-img-top rounded-0 cursor-point" alt="product img">
+                                        <div class="card-body p-0">
+                                            <a class="px-2 mt-2 mb-2" href="javascript:void(0);" v-text="p.name"></a>
+                                            <span class="ml-1 tm-font-style-default">¥</span>
+                                            <span class="card-body-promote-price" v-text="p.promotePrice">179.00</span>
+                                            <span class="ml-3 tm-font-style-default">¥</span>
+                                            <span class="card-body-original-price" v-text="p.originalPrice">179.00</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- 店铺主（右）内容区 -->
+                            <div class="shop-info-right-content">
+                                <!-- 切换栏 -->
+                                <div class="tab-button-list">
+                                    <ul class="d-flex m-0 p-0 tm-list-group cursor-point">
+                                        <li id="product-detail-tab" data-index="0" class="position-relative list-group-custom tab-active-li-style"><!-- tab-active-li-style -->
+                                            <div class="position-absolute list-group-arrow"></div><!-- display-none -->
+                                            <span class="tab-active-span-style ">商品详情</span><!-- tab-active-span-style -->
+                                        </li>
+                                        <li id="user-review-tab" data-index="1" class="position-relative list-group-custom">
+                                            <div class="position-absolute list-group-arrow display-none"></div><!-- display-none -->
+                                            <span class="tm-list-group-right-border">
+                                                <span>累计评价</span>
+                                                <span>1232</span>
+                                            </span>
+                                        </li>
+                                        <li id="service-detail-tab" data-index="2" class="position-relative list-group-custom">
+                                            <div class="position-absolute list-group-arrow display-none"></div><!-- display-none -->
+                                            <span class="tm-list-group-right-border">服务详情</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <!-- tab content -->
+                                <div class="w-100">
+                                    <!-- Tab panes -->
+                                    <div class="tab-content" id="nav-tabContent">
+                                        <!-- 商品详情 -->
+                                        <div class="tab-pane-custom">
+                                            <div class="w-100 d-flex align-items-center">
+                                                <img class="mr-4" width="120" th:src="@{image/site/TB1DFjbXQH0gN.jpg}" src="../../static/image/site/TB1DFjbXQH0gN.jpg">
+                                                <div >
+                                                    <p  class="tm-font-style-default" style="color: #666;font-weight: 400;">
+                                                        该商品参与了公益宝贝计划，卖家承诺每笔成交将为<span style="color: #c40000;font-weight: 400;">情暖少数民族女孩</span>捐赠<span style="color: #c40000;font-weight: 400;">0.02元</span>。该商品已累积捐赠<span style="color: #c40000;font-weight: 400;">10笔</span>。
+                                                    </p>
+                                                    <p class="tm-font-style-default">
+                                                        善款用途简介：该项目由海南成美慈善基金会自2011年起发起，主要目标在于资助和培养少数民族地区大龄女童（14-18岁左右）发展，通过助学金、靓志奖学金、靓...
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div class="w-100 p-4 main-content-border">
+                                                <div class="tm-font-min">
+                                                    <span class="tm-font-color-1">品牌名称：</span>
+                                                    <span class="tm-font-color-2" v-text="product.name">Philips/飞利浦</span>
+                                                </div>
+                                                <div class="mt-4 tm-font-min tm-font-color-3 tm-font-bold">
+                                                    <span>产品参数：</span>
+                                                </div>
+                                                <div class="w-100 mt-3">
+                                                    <span class="d-inline-block text-truncate mr-4 mt-1 tm-font-min tm-font-color-1 product-properties-item" v-for="pt in properties" v-text="pt.name+' : '+pt.propertyValue.value" v-bind:title="pt.propertyValue.value">
+                                                        产品名称：Philips/飞利浦 S6550Philips/飞利浦 S6550Philips/飞利浦 S6550Philips/飞利浦 S6550
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="w-100 mt-3">
+                                                <img class="w-100" th:src="@{image/site/TB1tqFIxpzXa-790-180.png}" src="../../static/image/site/TB1tqFIxpzXa-790-180.png">
+                                            </div>
+                                            <!--延保服务-->
+                                            <div class="w-100 d-flex align-items-start  tm-protected-service">
+                                                <img th:src="@{image/site/TB1RxklfH81-36.png}" src="../../static/image/site/TB1RxklfH81-36.png">
+                                                <div class="d-inline-block">
+                                                    <span class="d-block mt-3">延保服务</span>
+                                                    <p class="mt-2 tm-font-min tm-font-color-1">购买天猫商品时选择购买“延保服务”后，在服务保障期内如消费者购买的商品发生故障，由天猫负责委派第三方服务商在消费者的服务保障额度范围内为消费者提供维修的保障服务项目。</p>
+                                                    <div class="w-100 mb-3">
+                                                        <span class="tm-font-min tm-font-color-3">本服务由浙江天猫供应链管理有限公司提供</span>
+                                                        <a class="tm-font-min tm-font-color-3 tm-font-bold" href="javascript:void(0);">查看执照</a>
+                                                        <img width="20" th:src="@{image/site/wananbei.png}" src="../../static/image/site/wananbei.png">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- detail image list -->
+                                            <div class="w-100 mt-4">
+                                                <img class="w-100" v-for="pd in productDetail" v-bind:src="'image/productDetail/'+pd.id+'.jpg'">
+                                            </div>
+                                        </div>
+                                        <!-- 累计评价 -->
+                                        <div class="tab-pane-custom display-none">
+                                            <div class="row review-item" v-for="i in 10">
+                                                <div class="col-7 d-flex flex-column">
+                                                    <div class="row">
+                                                        <div class="col tm-font-min tm-font-color-2">
+                                                            剃须动力：还可以 充电时间：1小时很快 剃须效果：还不错 剃须速度：还好 外观做工：手感细腻舒适
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mt-4">
+                                                        <div class="col tm-font-min tm-font-color-2">
+                                                            <img class="mr-2" v-for="index in 3" width="40" height="40" th:src="@{image/reviewImage/O1CNg_40x40.jpg}" src="../../static/image/reviewImage/O1CNg_40x40.jpg">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mt-4">
+                                                        <div class="col tm-font-min tm-font-color-3">
+                                                           8-10
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-3 d-flex align-items-center tm-font-min">
+                                                    <span class="tm-font-color-1">套餐类型：</span>
+                                                    <span class="tm-font-color-3">官方标配</span>
+                                                </div>
+                                                <div class="col-2 d-flex align-items-center tm-font-min">
+                                                    <span class="tm-font-color-1">红***缘</span>
+                                                    <span class="tm-font-color-3">（匿名）</span>
+                                                </div>
+                                            </div>
+                                            <!-- review page -->
+                                            <div class="review-page">
+                                                <nav class="d-inline-block" aria-label="Page navigation example">
+                                                    <ul class="pagination">
+                                                        <li class="page-item disabled"><a class="page-link" href="#">&#60;&#60;上一页</a></li>
+                                                        <li class="page-item disabled"><a class="page-link" href="#">1</a></li>
+                                                        <li class="page-item disabled"><a class="page-link" href="#">下一页&gt;&gt;</a></li>
+                                                    </ul>
+                                                </nav>
+                                            </div>
+                                        </div>
+                                        <!-- 服务详情 -->
+                                        <div class="tab-pane-custom display-none">
+                                            <div class="w-100 text-center">
+                                                <span class="tm-font-min tm-font-bold">天猫电器城服务承诺</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- footer pane -->
+                                    <div class="w-100">
+                                        <!--延保服务-->
+                                        <div class="w-100 d-flex align-items-start  tm-protected-service">
+                                            <img th:src="@{image/site/TB1RxklfH81-36.png}" src="../../static/image/site/TB1RxklfH81-36.png">
+                                            <div class="d-inline-block">
+                                                <span class="d-block mt-3">延保服务</span>
+                                                <p class="mt-2 tm-font-min tm-font-color-1">购买天猫商品时选择购买“延保服务”后，在服务保障期内如消费者购买的商品发生故障，由天猫负责委派第三方服务商在消费者的服务保障额度范围内为消费者提供维修的保障服务项目。</p>
+                                                <div class="w-100 mb-3">
+                                                    <span class="tm-font-min tm-font-color-3">本服务由浙江天猫供应链管理有限公司提供</span>
+                                                    <a class="tm-font-min tm-font-color-3 tm-font-bold" href="javascript:void(0);">查看执照</a>
+                                                    <img width="20" th:src="@{image/site/wananbei.png}" src="../../static/image/site/wananbei.png">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- 猜你喜欢 -->
+                                        <div class="w-100 mt-5 guess-you-like">
+                                            <span class="d-inline-block w-100 tm-font-min tm-font-bold">猜你喜欢</span>
+                                            <a class="position-relative d-inline-block ml-4 mt-4 text-decoration-none" v-for="index in Math.floor(products.length/3*3)" href="javascript:void(0);" v-on:click="item(products[index-1].id)">
+                                                <!-- vue 表达式无法用 “ - ”号  -->
+                                                <template v-if="index<Math.floor(products.length/3*3)">
+                                                    <span class="position-absolute d-inline-block w-100 tm-font-min tm-font-bold tm-color-red" v-text="'¥'+products[index-1].promotePrice">¥58</span>
+                                                    <img width="220" v-bind:src="'image/productSingle_middle/'+productImageMap[products[index-1].id].id+'.jpg'">
+                                                </template>
+                                            </a>
+                                        </div>
+                                        <!-- 安全提示 -->
+                                        <div class="w-100 mt-4 mb-2 safety-tip">
+                                            <div class="d-flex">
+                                                <span class="text-nowrap tm-font-min tm-font-bold tm-font-color-2">安全提示：</span>
+                                                <div class="pl-2">
+                                                    <p class="m-0 tm-font-min tm-font-color-2">
+                                                        请勿随意接收任何来源不明的文件，请勿随意点击任何来源不明的链接。涉及资金往来的事项请务必仔细核对资金往来信息。 天猫不会以订单有问题，让您提供任何银行卡、密码、手机验证码！遇到可疑情况可在钱盾“诈骗举报”中进行举报,
+                                                        <a class="tm-font-min" href="javascript:void(0);">安全推荐</a>
+                                                        <br>
+                                                        <span class="tm-font-min tm-font-color-2">推荐安全软件：</span>
+                                                        <a class="text-decoration-none tm-font-min tm-font-color-3" href="javascript:void(0);">
+                                                            <img width="16" th:src="@{image/site/TB19ShZQFXX.png}" src="../../static/image/site/TB19ShZQFXX.png">
+                                                            <span>钱盾</span>
+                                                        </a>
+                                                        <a class="ml-2 text-decoration-none tm-font-min tm-font-color-3" href="javascript:void(0);">
+                                                            <img width="16" th:src="@{image/site/TB1GK2owu0bFXXX.png_16x16.jpg}" src="../../static/image/site/TB1GK2owu0bFXXX.png_16x16.jpg">
+                                                            <span>UC浏览器</span>
+                                                        </a>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <!-- center line -->
+                                            <div class="w-100"></div>
+                                            <div class="d-flex">
+                                                <span class="text-nowrap tm-font-min tm-font-bold tm-font-color-2">内容声明：</span>
+                                                <div class="pl-2">
+                                                    <p class="m-0 tm-font-min tm-font-color-2">
+                                                        天猫为第三方交易平台及互联网信息服务提供者，天猫（含网站、客户端等）所展示的商品/服务的标题、价格、详情等信息内容系由店铺经营者发布，其真实性、准确性和合法性均由店铺经营者负责。天猫提醒用户购买商品/服务前注意谨慎核实。如用户对商品/服务的标题、价格、详情等任何信息有任何疑问的，请在购买前通过阿里旺旺与店铺经营者沟通确认；天猫存在海量店铺，如用户发现店铺内有任何违法/侵权信息，请立即向天猫举报并提供有效线索。
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 右侧列 -->
+                    <!-- right 看了又看 container -->
+                    <div class="right-other-product">
+                        <div class="w-100 d-flex align-items-center justify-content-center mt-5">
+                            <i></i>
+                            <span class="mx-3 text-main-type">本店同类好评商品</span>
+                            <i></i>
+                        </div>
+                        <div class="w-100 d-flex mb-3 align-items-center mt-2 flex-column other-product-item" v-for="(p,index) in products">
+                            <template v-if="index < 3">
+                                <a class="position-relative">
+                                    <span class="w-100 d-block position-absolute">¥799.00</span>
+                                    <img class="w-100" v-bind:src="'image/productSingle_middle/'+productImageMap[p.id].id+'.jpg'" v-on:click="item(p.id)"><!-- onclick -->
+                                </a>
+                                <a class="d-block text-truncate mt-1 w-100 px-3" href="javascript:void (0);" v-text="p.name" v-on:click="item(p.id)"></a>
+                            </template>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- footer page -->
+        <div class="row mx-0" th:replace="include/footer::footerDetail"></div>
+    </div>
+</body>
+</html>
